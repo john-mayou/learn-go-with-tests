@@ -1,16 +1,27 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"strings"
+)
 
-const englishHelloPrefix = "Hello, "
+var langToGreetingPrefix = map[string]string{
+	"english": "Hello",
+	"spanish": "Hola",
+	"french":  "Bonjour",
+}
 
-func Hello(name string) string {
+func Hello(name string, lang string) string {
 	if name == "" {
 		name = "World"
 	}
-	return englishHelloPrefix + name
+	prefix, found := langToGreetingPrefix[strings.ToLower(lang)]
+	if !found {
+		prefix = "Hello"
+	}
+	return prefix + ", " + name
 }
 
 func main() {
-	fmt.Println(Hello("world"))
+	fmt.Println(Hello("World", ""))
 }

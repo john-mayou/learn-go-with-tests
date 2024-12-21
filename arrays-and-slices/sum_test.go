@@ -1,7 +1,7 @@
 package sum
 
 import (
-	"reflect"
+	"slices"
 	"testing"
 )
 
@@ -30,7 +30,7 @@ func assertEqualInt(t testing.TB, actual, expected int) {
 
 func assertEqualIntSlice(t testing.TB, actual, expected []int) {
 	t.Helper()
-	if !reflect.DeepEqual(actual, expected) {
+	if !slices.Equal(actual, expected) {
 		t.Errorf("expected %v but got %d", expected, actual)
 	}
 }

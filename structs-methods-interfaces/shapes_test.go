@@ -15,6 +15,8 @@ func TestPerimeter(t *testing.T) {
 		{shape: &Rectangle{Width: 10.0, Height: 10.0}, expected: 40.0},
 		{shape: &Circle{Radius: 5.0}, expected: 31.4159},
 		{shape: &Circle{Radius: 10.0}, expected: 62.8319},
+		{shape: &RightTriangle{Base: 3.0, Height: 4.0}, expected: 12.0},
+		{shape: &RightTriangle{Base: 10.0, Height: 10.0}, expected: 34.1421},
 	}
 
 	for _, tt := range tests {
@@ -37,6 +39,8 @@ func TestArea(t *testing.T) {
 		{shape: &Rectangle{Width: 10.0, Height: 10.0}, expected: 100.0},
 		{shape: &Circle{Radius: 5.0}, expected: 78.5398},
 		{shape: &Circle{Radius: 10.0}, expected: 314.1593},
+		{shape: &RightTriangle{Base: 3.0, Height: 4.0}, expected: 6.0},
+		{shape: &RightTriangle{Base: 10.0, Height: 10.0}, expected: 50.0},
 	}
 
 	for _, tt := range tests {

@@ -21,6 +21,16 @@ func TestSumAll(t *testing.T) {
 	})
 }
 
+func TestSumAllTails(t *testing.T) {
+	t.Run("returns sum of slices tails", func(t *testing.T) {
+		assertEqualIntSlice(t, SumAllTails(), []int{})
+		assertEqualIntSlice(t, SumAllTails([]int{}), []int{0})
+		assertEqualIntSlice(t, SumAllTails([]int{1}), []int{0})
+		assertEqualIntSlice(t, SumAllTails([]int{1, 2}), []int{2})
+		assertEqualIntSlice(t, SumAllTails([]int{2, 3, 4}, []int{5, 6, 7}), []int{7, 13})
+	})
+}
+
 func assertEqualInt(t testing.TB, actual, expected int) {
 	t.Helper()
 	if actual != expected {

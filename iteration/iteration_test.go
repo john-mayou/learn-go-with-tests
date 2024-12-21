@@ -6,15 +6,16 @@ import (
 )
 
 func ExampleRepeat() {
-	output := Repeat("a")
+	output := Repeat("a", 3)
 	fmt.Println(output)
-	// Output: aaaaa
+	// Output: aaa
 }
 
 func TestRepeat(t *testing.T) {
-	t.Run("returns string repeated 5 times", func(t *testing.T) {
-		assertEqualStr(t, Repeat("a"), "aaaaa")
-		assertEqualStr(t, Repeat("ab"), "ababababab")
+	t.Run("returns expected string", func(t *testing.T) {
+		assertEqualStr(t, Repeat("a", 2), "aa")
+		assertEqualStr(t, Repeat("a", 3), "aaa")
+		assertEqualStr(t, Repeat("ab", 3), "ababab")
 	})
 }
 
@@ -27,6 +28,6 @@ func assertEqualStr(t testing.TB, actual, expected string) {
 
 func BenchmarkRepeat(b *testing.B) {
 	for range b.N {
-		Repeat("a")
+		Repeat("a", 3)
 	}
 }

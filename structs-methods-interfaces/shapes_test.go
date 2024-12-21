@@ -18,7 +18,7 @@ func TestPerimeter(t *testing.T) {
 	for _, tt := range tests {
 		testname := fmt.Sprintf("returns expected perimeter for width %v and height %v", tt.width, tt.height)
 		t.Run(testname, func(t *testing.T) {
-			actual := Perimeter(tt.width, tt.height)
+			actual := Perimeter(Rectangle{Width: tt.width, Height: tt.height})
 			if actual != tt.expected {
 				t.Errorf("expected %.2f but got %.2f", tt.expected, actual)
 			}
@@ -39,7 +39,7 @@ func TestArea(t *testing.T) {
 	for _, tt := range tests {
 		testname := fmt.Sprintf("returns expected area for width %v and height %v", tt.width, tt.height)
 		t.Run(testname, func(t *testing.T) {
-			actual := Area(tt.width, tt.height)
+			actual := Area(Rectangle{Width: tt.width, Height: tt.height})
 			if actual != tt.expected {
 				t.Errorf("expected %.2f but got %.2f", tt.expected, actual)
 			}

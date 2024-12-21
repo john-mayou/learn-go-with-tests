@@ -9,9 +9,9 @@ func Sum(nums []int) int {
 }
 
 func SumAll(slices ...[]int) []int {
-	sums := make([]int, len(slices))
-	for i, nums := range slices {
-		sums[i] = Sum(nums)
+	sums := make([]int, 0, len(slices))
+	for _, nums := range slices {
+		sums = append(sums, Sum(nums))
 	}
 	return sums
 }

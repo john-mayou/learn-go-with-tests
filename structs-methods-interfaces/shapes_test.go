@@ -6,19 +6,18 @@ import (
 )
 
 func TestPerimeter(t *testing.T) {
-	rectangleTests := []struct {
-		width    float64
-		height   float64
+	tests := []struct {
+		shape    Shape
 		expected float64
 	}{
-		{width: 3.0, height: 4.0, expected: 14.0},
-		{width: 10.0, height: 10.0, expected: 40.0},
+		{shape: &Rectangle{Width: 3.0, Height: 4.0}, expected: 14.0},
+		{shape: &Rectangle{Width: 10.0, Height: 10.0}, expected: 40.0},
 	}
 
-	for _, tt := range rectangleTests {
-		testname := fmt.Sprintf("returns expected rectangle perimeter for width %v and height %v", tt.width, tt.height)
+	for _, tt := range tests {
+		testname := fmt.Sprintf("returns expected perimeter for shape %#v", tt.shape)
 		t.Run(testname, func(t *testing.T) {
-			actual := Perimeter(Rectangle{Width: tt.width, Height: tt.height})
+			actual := tt.shape.Perimeter()
 			if actual != tt.expected {
 				t.Errorf("expected %.2f but got %.2f", tt.expected, actual)
 			}
@@ -27,19 +26,18 @@ func TestPerimeter(t *testing.T) {
 }
 
 func TestArea(t *testing.T) {
-	rectangleTests := []struct {
-		width    float64
-		height   float64
+	tests := []struct {
+		shape    Shape
 		expected float64
 	}{
-		{width: 3.0, height: 4.0, expected: 12.0},
-		{width: 10.0, height: 10.0, expected: 100.0},
+		{shape: &Rectangle{Width: 3.0, Height: 4.0}, expected: 12.0},
+		{shape: &Rectangle{Width: 10.0, Height: 10.0}, expected: 100.0},
 	}
 
-	for _, tt := range rectangleTests {
-		testname := fmt.Sprintf("returns expected rectangle area for width %v and height %v", tt.width, tt.height)
+	for _, tt := range tests {
+		testname := fmt.Sprintf("returns expected area for shape %#v", tt.shape)
 		t.Run(testname, func(t *testing.T) {
-			actual := Area(Rectangle{Width: tt.width, Height: tt.height})
+			actual := tt.shape.Area()
 			if actual != tt.expected {
 				t.Errorf("expected %.2f but got %.2f", tt.expected, actual)
 			}

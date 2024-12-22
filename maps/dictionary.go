@@ -18,9 +18,16 @@ func (d Dictionary) Search(word string) (string, error) {
 }
 
 func (d Dictionary) Add(word, meaning string) error {
-	if _, found := d[word]; found {
+	_, err := d.Search(word)
+
+	switch err {
+	case ErrNotFound:
+		d[word] = meaning
+	case nil:
 		return ErrWordExists
+	default:
+		return err
 	}
-	d[word] = meaning
+
 	return nil
 }

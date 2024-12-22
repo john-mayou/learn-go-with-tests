@@ -6,9 +6,14 @@ import (
 	"strconv"
 )
 
-func Countdown(writer io.Writer, count int, final string) {
+type Sleeper interface {
+	Sleep()
+}
+
+func Countdown(writer io.Writer, sleeper Sleeper, count int, final string) {
 	for i := count; i > 0; i-- {
-		fmt.Fprint(writer, strconv.Itoa(i))
+		fmt.Fprintln(writer, strconv.Itoa(i))
+		sleeper.Sleep()
 	}
 	fmt.Fprint(writer, final)
 }

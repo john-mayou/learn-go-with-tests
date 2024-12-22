@@ -5,11 +5,21 @@ import (
 	"testing"
 )
 
+type SpySleeper struct {
+	Calls int
+}
+
+func (s *SpySleeper) Sleep() {
+	s.Calls++
+}
+
 func TestCountdown(t *testing.T) {
 	t.Run("counts down", func(t *testing.T) {
 		buffer := &bytes.Buffer{}
-		Countdown(buffer, 3, "Go!")
+		sleeper := &SpySleeper{}
+		Countdown(buffer, sleeper, 3, "Go!")
 		assertEqual(t, buffer.String(), "3\n2\n1\nGo!")
+		assertEqual(t, sleeper.Calls, 3)
 	})
 }
 

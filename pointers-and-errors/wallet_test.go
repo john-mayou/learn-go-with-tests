@@ -32,8 +32,7 @@ func TestWallet(t *testing.T) {
 		assertNoErr(t, err)
 
 		err = wallet.Withdraw(Bitcoin(1))
-		assertErr(t, err)
-		assertEqual(t, err.Error(), "insufficient funds, only 0.000000 BTC left")
+		assertErr(t, err, "insufficient funds, only 0.000000 BTC left")
 		assertEqual(t, wallet.Balance(), Bitcoin(0))
 	})
 }
@@ -45,10 +44,13 @@ func assertEqual[V comparable](t testing.TB, got, want V) {
 	}
 }
 
-func assertErr(t testing.TB, err error) {
+func assertErr(t testing.TB, err error, msg string) {
 	t.Helper()
 	if err == nil {
-		t.Errorf("wanted err but did not get one")
+		t.Fatal("wanted err but did not get one")
+	}
+	if err.Error() != msg {
+		t.Errorf("got %v but wanted %v as err message", err.Error(), msg)
 	}
 }
 

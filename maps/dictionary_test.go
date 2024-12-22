@@ -19,7 +19,8 @@ func TestSearch(t *testing.T) {
 func TestAdd(t *testing.T) {
 	t.Run("add new word", func(t *testing.T) {
 		dict := Dictionary{}
-		dict.Add("word", "meaning")
+		err := dict.Add("word", "meaning")
+		assertNoErr(t, err)
 		meaning, err := dict.Search("word")
 		assertNoErr(t, err)
 		assertEqual(t, meaning, "meaning")

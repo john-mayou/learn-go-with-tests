@@ -53,6 +53,21 @@ func TestUpdate(t *testing.T) {
 	})
 }
 
+func TestDelete(t *testing.T) {
+	t.Run("delete word", func(t *testing.T) {
+		dict := Dictionary{"word": "meaning"}
+		err := dict.Delete("word")
+		assertNoErr(t, err)
+		_, err = dict.Search("word")
+		assertErr(t, err, ErrNotFound.Error())
+	})
+	t.Run("returns error on uknown word", func(t *testing.T) {
+		dict := Dictionary{}
+		err := dict.Delete("word")
+		assertErr(t, err, ErrNotFound.Error())
+	})
+}
+
 func assertEqual[V comparable](t testing.TB, got, want V) {
 	t.Helper()
 	if got != want {

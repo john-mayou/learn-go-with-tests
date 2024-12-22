@@ -44,3 +44,12 @@ func (d Dictionary) Update(word, meaning string) error {
 	d[word] = meaning
 	return nil
 }
+
+func (d Dictionary) Delete(word string) error {
+	_, err := d.Search(word)
+	if err != nil {
+		return err
+	}
+	delete(d, word)
+	return nil
+}

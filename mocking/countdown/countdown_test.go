@@ -8,8 +8,8 @@ import (
 func TestCountdown(t *testing.T) {
 	t.Run("counts down", func(t *testing.T) {
 		buffer := &bytes.Buffer{}
-		Countdown(buffer)
-		assertEqual(t, buffer.String(), "3")
+		Countdown(buffer, 3, "Go!")
+		assertEqual(t, buffer.String(), "3\n2\n1\nGo!")
 	})
 }
 

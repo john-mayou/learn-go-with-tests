@@ -7,5 +7,5 @@ import (
 )
 
 func main() {
-	countdown.Countdown(os.Stdout)
+	countdown.Countdown(os.Stdout, 5, "Go!")
 }

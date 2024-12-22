@@ -73,6 +73,6 @@ func assertErr(t testing.TB, err error, msg string) {
 func assertNoErr(t testing.TB, err error) {
 	t.Helper()
 	if err != nil {
-		t.Errorf("wanted no err but got %q", err.Error())
+		t.Fatalf("wanted no err but got %q", err.Error())
 	}
 }

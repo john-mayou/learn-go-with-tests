@@ -24,13 +24,31 @@ func TestAdd(t *testing.T) {
 		assertNoErr(t, err)
 		assertEqual(t, meaning, "meaning")
 	})
-	t.Run("override word", func(t *testing.T) {
+	t.Run("does not override word", func(t *testing.T) {
 		dict := Dictionary{"word": "old meaning"}
 		err := dict.Add("word", "new meaning")
 		assertErr(t, err, ErrWordExists.Error())
 		meaning, err := dict.Search("word")
 		assertNoErr(t, err)
 		assertEqual(t, meaning, "old meaning")
+	})
+}
+
+func TestUpdate(t *testing.T) {
+	t.Run("updates word", func(t *testing.T) {
+		dict := Dictionary{"word": "old meaning"}
+		err := dict.Update("word", "new meaning")
+		assertNoErr(t, err)
+		meaning, err := dict.Search("word")
+		assertNoErr(t, err)
+		assertEqual(t, meaning, "new meaning")
+	})
+	t.Run("returns error on unknown word", func(t *testing.T) {
+		dict := Dictionary{}
+		err := dict.Update("word", "new meaning")
+		assertErr(t, err, ErrNotFound.Error())
+		_, err = dict.Search("word")
+		assertErr(t, err, ErrNotFound.Error())
 	})
 }
 

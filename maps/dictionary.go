@@ -35,3 +35,12 @@ func (d Dictionary) Add(word, meaning string) error {
 
 	return nil
 }
+
+func (d Dictionary) Update(word, meaning string) error {
+	_, err := d.Search(word)
+	if err != nil {
+		return err
+	}
+	d[word] = meaning
+	return nil
+}

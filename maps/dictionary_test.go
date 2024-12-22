@@ -3,7 +3,7 @@ package dictionary
 import "testing"
 
 func TestSearch(t *testing.T) {
-	dict := map[string]string{"word": "meaning"}
+	dict := Dictionary{"word": "meaning"}
 	assertEqual(t, Search(dict, "word"), "meaning")
 }
 

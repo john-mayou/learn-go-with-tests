@@ -6,14 +6,6 @@ import (
 	"testing"
 )
 
-type SpySleeper struct {
-	Calls int
-}
-
-func (s *SpySleeper) Sleep() {
-	s.Calls++
-}
-
 type SpyOperations struct {
 	Calls []string
 }
@@ -35,10 +27,9 @@ func (s *SpyOperations) Write(p []byte) (n int, err error) {
 func TestCountdown(t *testing.T) {
 	t.Run("counts down", func(t *testing.T) {
 		buffer := &bytes.Buffer{}
-		sleeper := &SpySleeper{}
+		sleeper := &SpyOperations{}
 		Countdown(buffer, sleeper, 3, "Go!")
 		assertEqual(t, buffer.String(), "3\n2\n1\nGo!")
-		assertEqual(t, sleeper.Calls, 3)
 	})
 	t.Run("write before every sleep", func(t *testing.T) {
 		spy := &SpyOperations{}

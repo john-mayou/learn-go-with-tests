@@ -16,6 +16,23 @@ func TestSearch(t *testing.T) {
 	})
 }
 
+func TestAdd(t *testing.T) {
+	t.Run("add new word", func(t *testing.T) {
+		dict := Dictionary{}
+		dict.Add("word", "meaning")
+		meaning, err := dict.Search("word")
+		assertNoErr(t, err)
+		assertEqual(t, meaning, "meaning")
+	})
+	t.Run("override word", func(t *testing.T) {
+		dict := Dictionary{"word": "meaning"}
+		dict.Add("word", "new meaning")
+		meaning, err := dict.Search("word")
+		assertNoErr(t, err)
+		assertEqual(t, meaning, "new meaning")
+	})
+}
+
 func assertEqual[V comparable](t testing.TB, got, want V) {
 	t.Helper()
 	if got != want {

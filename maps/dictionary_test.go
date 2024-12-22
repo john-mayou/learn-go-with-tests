@@ -25,11 +25,12 @@ func TestAdd(t *testing.T) {
 		assertEqual(t, meaning, "meaning")
 	})
 	t.Run("override word", func(t *testing.T) {
-		dict := Dictionary{"word": "meaning"}
-		dict.Add("word", "new meaning")
+		dict := Dictionary{"word": "old meaning"}
+		err := dict.Add("word", "new meaning")
+		assertErr(t, err, ErrWordExists.Error())
 		meaning, err := dict.Search("word")
 		assertNoErr(t, err)
-		assertEqual(t, meaning, "new meaning")
+		assertEqual(t, meaning, "old meaning")
 	})
 }
 

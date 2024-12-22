@@ -23,7 +23,8 @@ func TestRacer(t *testing.T) {
 			defer tt.serverA.Close()
 			defer tt.serverB.Close()
 
-			got := Racer(tt.serverA.URL, tt.serverB.URL)
+			got, err := Racer(tt.serverA.URL, tt.serverB.URL, 10*time.Second)
+			assertNoErr(t, err)
 
 			switch tt.want {
 			case "A":
@@ -35,6 +36,14 @@ func TestRacer(t *testing.T) {
 			}
 		})
 	}
+
+	t.Run("returns an error if a server doesn't respond within given timeout", func(t *testing.T) {
+		server := makeDelayedServer(10 * time.Millisecond)
+		defer server.Close()
+
+		_, err := Racer(server.URL, server.URL, 5*time.Microsecond)
+		assertErr(t, err, "")
+	})
 }
 
 func makeDelayedServer(delay time.Duration) *httptest.Server {
@@ -48,5 +57,22 @@ func assertEqual[V comparable](t testing.TB, got, want V) {
 	t.Helper()
 	if got != want {
 		t.Errorf("got %v but wanted %v", got, want)
+	}
+}
+
+func assertErr(t testing.TB, err error, msg string) {
+	t.Helper()
+	if err == nil {
+		t.Fatal("wanted error but did not get one")
+	}
+	if len(msg) > 0 && err.Error() != msg {
+		t.Errorf("got %q but wanted %q", err.Error(), msg)
+	}
+}
+
+func assertNoErr(t testing.TB, err error) {
+	t.Helper()
+	if err != nil {
+		t.Errorf("wanted no error but got %q", err.Error())
 	}
 }

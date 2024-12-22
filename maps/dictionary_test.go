@@ -12,7 +12,7 @@ func TestSearch(t *testing.T) {
 	t.Run("unknown word", func(t *testing.T) {
 		dict := Dictionary{"word": "meaning"}
 		_, err := dict.Search("random")
-		assertErr(t, err, "unknown word")
+		assertErr(t, err, ErrNotFound.Error())
 	})
 }
 

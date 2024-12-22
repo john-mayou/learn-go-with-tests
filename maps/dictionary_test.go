@@ -1,0 +1,15 @@
+package dictionary
+
+import "testing"
+
+func TestSearch(t *testing.T) {
+	dict := map[string]string{"word": "meaning"}
+	assertEqual(t, Search(dict, "word"), "meaning")
+}
+
+func assertEqual[V comparable](t testing.TB, got, want V) {
+	t.Helper()
+	if got != want {
+		t.Errorf("got %v but wanted %v", got, want)
+	}
+}

@@ -4,7 +4,7 @@ import "testing"
 
 func TestSearch(t *testing.T) {
 	dict := Dictionary{"word": "meaning"}
-	assertEqual(t, Search(dict, "word"), "meaning")
+	assertEqual(t, dict.Search("word"), "meaning")
 }
 
 func assertEqual[V comparable](t testing.TB, got, want V) {
